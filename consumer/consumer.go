@@ -41,7 +41,7 @@ func initAmqp() {
 
 	q, err = ch.QueueDeclare(
 		"go-amqp-example", // name, leave empty to generate a unique name
-		false,             // durable
+		true,              // durable
 		false,             // delete when usused
 		true,              // exclusive
 		false,             // noWait
@@ -63,12 +63,13 @@ func initAmqp() {
 
 func main() {
 	log.Println("Start consuming the Queue...")
-	for {
-		for r := range replies {
-			log.Println("New replies to Consume...")
-			user := contracts.User{}
-			json.Unmarshal(r.Body, &user)
-			fmt.Printf("FirstName: %s, LastName: %s\n", user.FirstName, user.LastName)
-		}
+	var count int = 0
+
+	for r := range replies {
+		log.Printf("Consuming reply number %d", count)
+		user := contracts.User{}
+		json.Unmarshal(r.Body, &user)
+		fmt.Printf("FirstName: %s, LastName: %s\n", user.FirstName, user.LastName)
+		count++
 	}
 }
