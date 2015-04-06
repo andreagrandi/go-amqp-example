@@ -40,12 +40,12 @@ func initAmqp() {
 	failOnError(err, "Failed to open a channel")
 
 	q, err = ch.QueueDeclare(
-		"",    // name, leave empty to generate a unique name
-		false, // durable
-		false, // delete when usused
-		true,  // exclusive
-		false, // noWait
-		nil,   // arguments
+		"go-amqp-example", // name, leave empty to generate a unique name
+		false,             // durable
+		false,             // delete when usused
+		true,              // exclusive
+		false,             // noWait
+		nil,               // arguments
 	)
 	failOnError(err, "Error declaring the Queue")
 
