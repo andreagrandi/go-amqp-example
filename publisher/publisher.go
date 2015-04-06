@@ -80,7 +80,7 @@ func main() {
 	log.Println("Starting publisher...")
 
 	// Publish messages
-	publishMessages(10)
+	publishMessages(1000)
 
 	// Close Channel
 	defer ch.Close()
