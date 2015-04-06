@@ -38,6 +38,17 @@ func initAmqp() {
 
 	ch, err = conn.Channel()
 	failOnError(err, "Failed to open a channel")
+
+	err = ch.ExchangeDeclare(
+		"go-test-exchange", // name
+		"direct",           // type
+		true,               // durable
+		false,              // auto-deleted
+		false,              // internal
+		false,              // noWait
+		nil,                // arguments
+	)
+	failOnError(err, "Failed to declare the Exchange")
 }
 
 func randomString(l int) string {
@@ -62,12 +73,12 @@ func publishMessages(messages int) {
 		failOnError(err, "Failed to marshal JSON")
 
 		err = ch.Publish(
-			"",                // exchange
-			"go-amqp-example", // routing key
-			false,             // mandatory
-			false,             // immediate
+			"go-test-exchange", // exchange
+			"go-amqp-example",  // routing key
+			false,              // mandatory
+			false,              // immediate
 			amqp.Publishing{
-				DeliveryMode: amqp.Persistent,
+				DeliveryMode: amqp.Transient,
 				ContentType:  "application/json",
 				Body:         payload,
 				Timestamp:    time.Now(),
