@@ -83,7 +83,7 @@ func initAmqp() {
 	replies, err = ch.Consume(
 		q.Name,            // queue
 		"go-amqp-example", // consumer
-		false,             // auto-ack
+		true,              // auto-ack
 		false,             // exclusive
 		false,             // no-local
 		false,             // no-wait

@@ -40,13 +40,13 @@ func initAmqp() {
 	failOnError(err, "Failed to open a channel")
 
 	err = ch.ExchangeDeclare(
-		"go-test-exchange", // name
-		"direct",           // type
-		true,               // durable
-		false,              // auto-deleted
-		false,              // internal
-		false,              // noWait
-		nil,                // arguments
+		"test-exchange", // name
+		"direct",        // type
+		true,            // durable
+		false,           // auto-deleted
+		false,           // internal
+		false,           // noWait
+		nil,             // arguments
 	)
 	failOnError(err, "Failed to declare the Exchange")
 }
@@ -74,7 +74,7 @@ func publishMessages(messages int) {
 
 		err = ch.Publish(
 			"go-test-exchange", // exchange
-			"go-amqp-example",  // routing key
+			"go-test-key",      // routing key
 			false,              // mandatory
 			false,              // immediate
 			amqp.Publishing{
