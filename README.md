@@ -28,3 +28,7 @@ Run the consumer:
 cd $GOPATH/src/github.com/andreagrandi/go-amqp-example/consumer
 go run consumer.go
 ```
+
+# Credits
+
+This source code is inspired by the examples available here http://godoc.org/github.com/streadway/amqp and it's been possible with the help of my co-workers at YoyoWallet.
