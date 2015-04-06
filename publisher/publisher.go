@@ -67,9 +67,10 @@ func publishMessages(messages int) {
 			false,             // mandatory
 			false,             // immediate
 			amqp.Publishing{
-				ContentType: "application/json",
-				Body:        payload,
-				Timestamp:   time.Now(),
+				DeliveryMode: amqp.Persistent,
+				ContentType:  "application/json",
+				Body:         payload,
+				Timestamp:    time.Now(),
 			})
 
 		failOnError(err, "Failed to Publish on RabbitMQ")
@@ -80,7 +81,7 @@ func main() {
 	log.Println("Starting publisher...")
 
 	// Publish messages
-	publishMessages(1000)
+	publishMessages(10000)
 
 	// Close Channel
 	defer ch.Close()
